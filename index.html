@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ゲームアプリ</title>
+        <style>
+            * {
+                margin: 0px auto;padding: 15px;
+            }
+
+            body{
+                border:10px double lightblue;
+                background-color: beige;
+                width: 700px;
+                height: auto;
+                padding: 16px;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            #canvas1 {
+                background-color: black;
+                background-size: 100% 100%;
+                border: 3px double gray;
+            }
+        </style>
+    </head>
+    <b>Point:</b>
+    <a id="result">0</a><a>/　9000</a>
+    <b>シューティングゲーム</b>
+    
+    <body>
+        <p>
+            <canvas id="canvas1" width="550" height="480"></canvas>
+        </p>
+        <h2>--操作方法--</h2>
+        <h3>マウス移動：左右移動　左クリック：ショット</h3>
+        <script>
+            const canvas1 = document.getElementById("canvas1");
+            const ctx1 = canvas1.getContext("2d"); 
+            const result = document.getElementById("result");
+            const ti = document.getElementById("times");
+
+            const target = {x: 350, y: 130, dir:  1}; //敵の初期位置
+            const target2 = {x: 300, y: 130, dir:  1};
+            const target3 = {x: 250, y: 130, dir:  1};
+            const target4 = {x: 200, y: 130, dir:  1};
+            const target5 = {x: 150, y: 130, dir:  1};
+            const target6 = {x: 100, y: 130, dir:  1};
+            const target7 = {x: 50, y: 130, dir:  1};
+            const target8 = {x: 350, y: 80, dir:  1};
+            const target9 = {x: 300, y: 80, dir:  1};
+            const target10 = {x: 250, y: 80, dir:  1};
+            const target11 = {x: 200, y: 80, dir:  1};
+            const target12 = {x: 150, y: 80, dir:  1};
+            const target13 = {x: 100, y: 80, dir:  1};
+            const target14 = {x: 50, y: 80, dir:  1};
+            const target15 = {x: 350, y: 30, dir:  1};
+            const target16 = {x: 300, y: 30, dir:  1};
+            const target17 = {x: 250, y: 30, dir:  1};
+            const target18 = {x: 200, y: 30, dir:  1};
+            const target19 = {x: 150, y: 30, dir:  1};
+            const target20 = {x: 100, y: 30, dir:  1};
+            const target21 = {x: 50, y: 30, dir:  1};
+            const target22 = {x: 400, y: 130, dir:  1};
+            const target23 = {x: 450, y: 130, dir:  1};
+            const target24 = {x: 500, y: 130, dir:  1};
+            const target25 = {x: 400, y: 89, dir:  1};
+            const target26 = {x: 450, y: 89, dir:  1};
+            const target27 = {x: 500, y: 89, dir:  1};
+            const target28 = {x: 400, y: 45, dir:  1};
+            const target29 = {x: 450, y: 35, dir:  1};
+            const target30 = {x: 500, y: 35, dir:  1};
+            const targetsp = {x: 300, y: 100, dir:  10};
+            const targetsp2 = {x: 300, y: 50, dir:  20};
+            const player = {x: 290, y: 400};
+            const ball = {x: -10, y: -10};
+
+            const audio1 = new Audio();
+            const audio2 = new Audio();
+            const audio3 = new Audio();
+            const BGM1 = new Audio();
+
+            const image1 = new Image();
+            const image2 = new Image();
+            const image3 = new Image();
+            image1.src = "virus.png";
+            image2.src = "sp1.png";
+            image3.src = "sp2.png";
+
+            audio1.src = "shot.mp3";
+            audio2.src = "enemyhit.mp3";
+            audio3.src = "powerup.mp3";
+            BGM1.src = "BGM.mp3";
+
+            let point = 0;
+
+            setInterval(game1, 30);
+
+            function game1() {
+                BGM1.play();
+                ctx1.clearRect(0, 0, 550, 480);
+
+                ctx1.fillStyle = "red";
+                ctx1.drawImage(image1, target.x - 15, target.y - 15, 25, 25);
+                ctx1.drawImage(image1, target2.x - 15, target2.y - 15, 25, 25);
+                ctx1.drawImage(image1, target3.x - 15, target3.y - 15, 25, 25);
+                ctx1.drawImage(image1, target4.x - 15, target4.y - 15, 25, 25);
+                ctx1.drawImage(image1, target5.x - 15, target5.y - 15, 25, 25);
+                ctx1.drawImage(image1, target6.x - 15, target6.y - 15, 25, 25);
+                ctx1.drawImage(image1, target7.x - 15, target7.y - 15, 25, 25);
+                ctx1.drawImage(image1, target8.x - 15, target8.y - 5, 25, 25);
+                ctx1.drawImage(image1, target9.x - 15, target9.y - 5, 25, 25);
+                ctx1.drawImage(image1, target10.x - 15, target10.y - 5, 25, 25);
+                ctx1.drawImage(image1, target11.x - 15, target11.y - 5, 25, 25);
+                ctx1.drawImage(image1, target12.x - 15, target12.y - 5, 25, 25);
+                ctx1.drawImage(image1, target13.x - 15, target13.y - 5, 25, 25);
+                ctx1.drawImage(image1, target14.x - 15, target14.y - 5, 25, 25);
+                ctx1.drawImage(image1, target15.x - 15, target15.y - 0, 25, 25);
+                ctx1.drawImage(image1, target16.x - 15, target16.y - 0, 25, 25);
+                ctx1.drawImage(image1, target17.x - 15, target17.y - 0, 25, 25);
+                ctx1.drawImage(image1, target18.x - 15, target18.y - 0, 25, 25);
+                ctx1.drawImage(image1, target19.x - 15, target19.y - 0, 25, 25);
+                ctx1.drawImage(image1, target20.x - 15, target20.y - 0, 25, 25);  
+                ctx1.drawImage(image1, target21.x - 15, target21.y - 0, 25, 25);
+                ctx1.drawImage(image2, targetsp.x - 15, targetsp.y - 5, 35, 10);
+                ctx1.drawImage(image1, target22.x - 15, target22.y - 15, 25, 25);
+                ctx1.drawImage(image1, target23.x - 15, target23.y - 15, 25, 25);
+                ctx1.drawImage(image1, target24.x - 15, target24.y - 15, 25, 25);
+                ctx1.drawImage(image1, target25.x - 15, target25.y - 15, 25, 25);
+                ctx1.drawImage(image1, target26.x - 15, target26.y - 15, 25, 25);
+                ctx1.drawImage(image1, target27.x - 15, target27.y - 15, 25, 25);
+                ctx1.drawImage(image1, target28.x - 15, target28.y - 15, 25, 25);
+                ctx1.drawImage(image1, target29.x - 15, target29.y - 5, 25, 25);
+                ctx1.drawImage(image1, target30.x - 15, target30.y - 5, 25, 25);
+                ctx1.drawImage(image3, targetsp2.x - 15, targetsp2.y + 10, 10, 10);
+
+                ctx1.fillStyle = "yellow";
+                ctx1.beginPath();
+                ctx1.moveTo(player.x + 5, player.y);
+                ctx1.lineTo(player.x - 25, player.y);
+                ctx1.lineTo(player.x - 10, player.y - 15);
+                ctx1.fillRect(player.x - 25, player.y - 5, 30, 10);
+                ctx1.closePath();
+                ctx1.fill();
+
+                ctx1.fillRect(ball.x - 12.5, ball.y - 10, 5, 15);
+
+                target.x -= target.dir;
+                target2.x -= target2.dir;
+                target3.x -= target3.dir;
+                target4.x -= target4.dir;
+                target5.x -= target5.dir;
+                target6.x -= target6.dir;
+                target7.x -= target7.dir;
+                target8.x += target8.dir;
+                target9.x += target9.dir;
+                target10.x += target10.dir;
+                target11.x += target11.dir;
+                target12.x += target12.dir;
+                target13.x += target13.dir;
+                target14.x += target14.dir;
+                target15.x -= target15.dir;
+                target16.x -= target16.dir;
+                target17.x -= target17.dir;
+                target18.x -= target18.dir;
+                target19.x -= target19.dir;
+                target20.x -= target20.dir;
+                target21.x -= target21.dir;
+                target22.x -= target22.dir;
+                target23.x -= target23.dir;
+                target24.x -= target24.dir;
+                target25.x += target25.dir;
+                target26.x += target26.dir;
+                target27.x += target27.dir;
+                target28.x -= target28.dir;
+                target29.x -= target29.dir;
+                target30.x -= target30.dir;
+                targetsp.x += targetsp.dir;
+                targetsp2.x += targetsp2.dir;
+
+                ball.y -= 20; //ボールの速度
+
+                if (target.x < 25 || 505 < target.x){ //間隔
+                    target.dir *= -1;      
+                }
+                if (target2.x < 25 || 505 < target2.x) {
+                    target2.dir *= -1;      
+                }
+                if (target3.x < 25 || 505 < target3.x) {
+                    target3.dir *= -1;      
+                }
+                if (target4.x < 25 || 505 < target4.x) {
+                    target4.dir *= -1;      
+                }
+                if (target5.x < 25 || 505 < target5.x) {
+                    target5.dir *= -1;      
+                }
+                if (target6.x < 25 || 505 < target6.x) {
+                    target6.dir *= -1;      
+                }
+                if (target7.x < 25 || 505 < target7.x) {
+                    target7.dir *= -1;      
+                }
+                if (target8.x < 25 || 505 < target8.x) {
+                    target8.dir *= -1;      
+                }
+                if (target9.x < 25 || 505 < target9.x) {
+                    target9.dir *= -1;      
+                }
+                if (target10.x < 25 || 505 < target10.x) {
+                    target10.dir *= -1;      
+                }
+                if (target11.x < 25 || 505 < target11.x) {
+                    target11.dir *= -1;      
+                }
+                if (target12.x < 25 || 505 < target12.x) {
+                    target12.dir *= -1;      
+                }
+                if (target13.x < 25 || 505 < target13.x) {
+                    target13.dir *= -1;      
+                }
+                if (target14.x < 25 || 505 < target14.x) {
+                    target14.dir *= -1;      
+                }
+                if (target15.x < 25 || 505 < target15.x) {
+                    target15.dir *= -1;      
+                }
+                if (target16.x < 25 || 505 < target16.x) {
+                    target16.dir *= -1;      
+                }
+                if (target17.x < 25 || 505 < target17.x) {
+                    target17.dir *= -1;      
+                }
+                if (target18.x < 25 || 505 < target18.x) {
+                    target18.dir *= -1;      
+                }
+                if (target19.x < 25 || 505 < target19.x) {
+                    target19.dir *= -1;      
+                }
+                if (target20.x < 25 || 505 < target20.x) {
+                    target20.dir *= -1;      
+                }
+                if (target21.x < 25 || 505 < target21.x) {
+                    target21.dir *= -1;      
+                }
+                if (targetsp.x < 25 || 505 < targetsp.x) {
+                    targetsp.dir *= -1;      
+                }
+                if (targetsp2.x < 25 || 505 < targetsp2.x) {
+                    targetsp2.dir *= -1;      
+                }
+                if (target22.x < 25 || 505 < target22.x) {
+                    target22.dir *= -1;      
+                }
+                if (target23.x < 25 || 505 < target23.x) {
+                    target23.dir *= -1;      
+                }
+                if (target24.x < 25 || 505 < target24.x) {
+                    target24.dir *= -1;      
+                }
+                if (target25.x < 25 || 505 < target25.x) {
+                    target25.dir *= -1;      
+                }
+                if (target26.x < 25 || 505 < target26.x) {
+                    target26.dir *= -1;      
+                }
+                if (target27.x < 25 || 505 < target27.x) {
+                    target27.dir *= -1;      
+                }
+                if (target28.x < 25 || 505 < target28.x) {
+                    target28.dir *= -1;      
+                }
+                if (target29.x < 25 || 505 < target29.x) {
+                    target29.dir *= -1;      
+                }
+                if (target30.x < 25 || 505 < target30.x) {
+                    target30.dir *= -1;      
+                }
+
+                if ((ball.y === 100) && (Math.abs(target.x - ball.x) < 25)) {
+                    point+=100;
+                    target.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target2.x - ball.x) < 25)) {
+                    point+=100;
+                    target2.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target3.x - ball.x) < 25)) {
+                    point+=100;
+                    target3.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target4.x - ball.x) < 25)) {
+                    point+=100;
+                    target4.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target5.x - ball.x) < 25)) {
+                    point+=100;
+                    target5.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target6.x - ball.x) < 25)) {
+                    point+=100;
+                    target6.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target7.x - ball.x) < 25)) {
+                    point+=100;
+                    target7.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target8.x - ball.x) < 25)) {
+                    point+=100;
+                    target8.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target9.x - ball.x) < 25)) {
+                    point+=100;
+                    target9.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target10.x - ball.x) < 25)) {
+                    point+=100;
+                    target10.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target11.x - ball.x) < 25)) {
+                    point+=100;
+                    target11.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target12.x - ball.x) < 25)) {
+                    point+=100;
+                    target12.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target13.x - ball.x) < 25)) {
+                    point+=100;
+                    target13.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target14.x - ball.x) < 25)) {
+                    point+=100;
+                    target14.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target15.x - ball.x) < 25)) {
+                    point+=100;
+                    target15.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target16.x - ball.x) < 25)) {
+                    point+=100;
+                    target16.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target17.x - ball.x) < 25)) {
+                    point+=100;
+                    target17.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target18.x - ball.x) < 25)) {
+                    point+=100;
+                    target18.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target19.x - ball.x) < 25)) {
+                    point+=100;
+                    target19.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target20.x - ball.x) < 25)) {
+                    point+=100;
+                    target20.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target21.x - ball.x) < 25)) {
+                    point+=100;
+                    target21.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(targetsp.x - ball.x) < 25)) {
+                    point+=1000;
+                    targetsp.x = -50;
+                    audio3.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(targetsp2.x - ball.x) < 25)) {
+                    point+=5000;
+                    targetsp2.x = -50;
+                    audio3.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target22.x - ball.x) < 25)) {
+                    point+=100;
+                    target22.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target23.x - ball.x) < 25)) {
+                    point+=100;
+                    target23.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target24.x - ball.x) < 25)) {
+                    point+=100;
+                    target24.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target25.x - ball.x) < 25)) {
+                    point+=100;
+                    target25.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target26.x - ball.x) < 25)) {
+                    point+=100;
+                    target26.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target27.x - ball.x) < 25)) {
+                    point+=100;
+                    target27.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target28.x - ball.x) < 25)) {
+                    point+=100;
+                    target28.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target29.x - ball.x) < 25)) {
+                    point+=100;
+                    target29.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+                }
+                if ((ball.y === 100) && (Math.abs(target30.x - ball.x) < 25)) {
+                    point+=100;
+                    target30.x = -50;
+                    audio2.play();
+                    ball.x = "";
+                    ball.y = "";
+                    result.innerHTML = Number(point);
+
+            }
+                canvas1.addEventListener("mousedown", function () {
+                ball.x = player.x;
+                ball.y = player.y;
+                audio1.play();
+            });
+            
+            canvas1.addEventListener("mousemove", function (e) {
+                const rect = e.target.getBoundingClientRect();
+                player.x = e.clientX - rect.left;
+            });
+
+            }
+        </script>
+    </body>
+</html>
